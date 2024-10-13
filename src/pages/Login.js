@@ -31,12 +31,14 @@ const Login = () => {
   };
   //register ctrl
   const handleSubmit = async (e) => {
+    const loading = toast.loading("Summarizing...")
     e.preventDefault();
     try {
       await axios.post("https://server-mp3l.onrender.com/api/v1/auth/login", { email, password });
-      toast.success("Login Successfully");
       localStorage.setItem("authToken", true);
       navigate("/home");
+      toast.dismiss(loading);
+      toast.success("Login Successfully");
     } catch (err) {
       console.log(error);
       if (err.response.data.error) {
