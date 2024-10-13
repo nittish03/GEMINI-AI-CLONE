@@ -6,7 +6,14 @@ import FormatAlignLeftOutlined from "@mui/icons-material/FormatAlignLeftOutlined
 import ChatRounded from "@mui/icons-material/ChatRounded";
 const Homepage = () => {
   const navigate = useNavigate();
+  const loggedIn = JSON.parse(localStorage.getItem("authToken"));
+
   return (
+    !loggedIn?
+    <>
+  <h1 style={{fontSize:"25vh",backgroundColor:"yellow"}} className="text-center" >LOG IN TO ACCESS</h1>
+  </>
+  :
     <>
       <Box sx={{ display: "flex", flexDirection: "row" }}>
         <Box p={2}>

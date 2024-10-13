@@ -30,7 +30,7 @@ const Register = () => {
     try {
       await axios.post("https://server-mp3l.onrender.com/api/v1/auth/register", { username, email, password });
       toast.success("User Register Successfully");
-      navigate("/login");
+      navigate("/");
     } catch (err) {
       console.log(error);
       if (err.response.data.error) {
@@ -101,7 +101,7 @@ const Register = () => {
           Sign Up
         </Button>
         <Typography mt={2}>
-          Already have an account ? <Link to="/login">Please Login</Link>
+          Already have an account ? <Link to="/">Please Login</Link>
         </Typography>
       </form>
     </Box>

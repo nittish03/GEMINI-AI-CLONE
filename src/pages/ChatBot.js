@@ -18,6 +18,8 @@ const ChatBot = () => {
   const theme = useTheme();
   //media
   const isNotMobile = useMediaQuery("(min-width: 1000px)");
+  const loggedIn = JSON.parse(localStorage.getItem("authToken"));
+
   // states
   const [text, settext] = useState("");
   const [response, setResponse] = useState("");
@@ -49,6 +51,11 @@ const ChatBot = () => {
 
   };
   return (
+    !loggedIn?
+    <>
+  <h1 style={{fontSize:"25vh",backgroundColor:"yellow"}} className="text-center" >LOG IN TO ACCESS</h1>
+  </>:
+    <>
     <Box
       width={isNotMobile ? "40%" : "80%"}
       p={"2rem"}
@@ -56,7 +63,7 @@ const ChatBot = () => {
       borderRadius={5}
       sx={{ boxShadow: 5 }}
       backgroundColor={theme.palette.background.alt}
-    >
+      >
       <Collapse in={error}>
         <Alert severity="error" sx={{ mb: 2 }}>
           {error}
@@ -76,7 +83,7 @@ const ChatBot = () => {
           onChange={(e) => {
             settext(e.target.value);
           }}
-        />
+          />
 
         <Button 
           onClick={handleSubmit}
@@ -85,7 +92,7 @@ const ChatBot = () => {
           variant="contained"
           size="large"
           sx={{ color: "white", mt: 2 }}
-        >
+          >
           Chat
         </Button>
         <Typography mt={2}>
@@ -95,29 +102,29 @@ const ChatBot = () => {
 
       {response ? (
         <Card
-          sx={{
-            mt: 4,
-            border: 1,
-            boxShadow: 0,
-            height: "500px",
-            borderRadius: 5,
-            borderColor: "natural.medium",
-            bgcolor: "background.default",
-          }}
+        sx={{
+          mt: 4,
+          border: 1,
+          boxShadow: 0,
+          height: "500px",
+          borderRadius: 5,
+          borderColor: "natural.medium",
+          bgcolor: "background.default",
+        }}
         >
           <Typography p={2}>{response}</Typography>
         </Card>
       ) : (
         <Card
-          sx={{
-            mt: 4,
-            border: 1,
-            boxShadow: 0,
-            height: "500px",
-            borderRadius: 5,
-            borderColor: "natural.medium",
-            bgcolor: "background.default",
-          }}
+        sx={{
+          mt: 4,
+          border: 1,
+          boxShadow: 0,
+          height: "500px",
+          borderRadius: 5,
+          borderColor: "natural.medium",
+          bgcolor: "background.default",
+        }}
         >
           <Typography
             variant="h5"
@@ -127,12 +134,13 @@ const ChatBot = () => {
               verticalAlign: "middel",
               lineHeight: "450px",
             }}
-          >
+            >
             Bot Response
           </Typography>
         </Card>
       )}
     </Box>
+      </>
   );
 };
 

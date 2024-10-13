@@ -22,6 +22,8 @@ const JsConverter = () => {
   const [text, settext] = useState("");
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
+  const loggedIn = JSON.parse(localStorage.getItem("authToken"));
+
 
   //register ctrl
   const handleSubmit = async (e) => {
@@ -49,6 +51,11 @@ const JsConverter = () => {
 
   };
   return (
+    !loggedIn?
+    <>
+  <h1 style={{fontSize:"25vh",backgroundColor:"yellow"}} className="text-center" >LOG IN TO ACCESS</h1>
+  </>:
+    <>
     <Box
       width={isNotMobile ? "40%" : "80%"}
       p={"2rem"}
@@ -56,7 +63,7 @@ const JsConverter = () => {
       borderRadius={5}
       sx={{ boxShadow: 5 }}
       backgroundColor={theme.palette.background.alt}
-    >
+      >
       <Collapse in={error}>
         <Alert severity="error" sx={{ mb: 2 }}>
           {error}
@@ -76,15 +83,15 @@ const JsConverter = () => {
           onChange={(e) => {
             settext(e.target.value);
           }}
-        />
+          />
 
         <Button
         onClick={handleSubmit}
-          type="submit"
-          fullWidth
-          variant="contained"
-          size="large"
-          sx={{ color: "white", mt: 2 }}
+        type="submit"
+        fullWidth
+        variant="contained"
+        size="large"
+        sx={{ color: "white", mt: 2 }}
         >
           Convert
         </Button>
@@ -95,16 +102,16 @@ const JsConverter = () => {
 
       {code ? (
         <Card
-          sx={{
-            mt: 4,
-            border: 1,
-            boxShadow: 0,
-            height: "500px",
-            borderRadius: 5,
-            borderColor: "natural.medium",
-            bgcolor: "background.default",
-            overflow: "auto",
-          }}
+        sx={{
+          mt: 4,
+          border: 1,
+          boxShadow: 0,
+          height: "500px",
+          borderRadius: 5,
+          borderColor: "natural.medium",
+          bgcolor: "background.default",
+          overflow: "auto",
+        }}
         >
           <pre>
             <Typography p={2}>{code}</Typography>
@@ -112,15 +119,15 @@ const JsConverter = () => {
         </Card>
       ) : (
         <Card
-          sx={{
-            mt: 4,
-            border: 1,
-            boxShadow: 0,
-            height: "500px",
-            borderRadius: 5,
-            borderColor: "natural.medium",
-            bgcolor: "background.default",
-          }}
+        sx={{
+          mt: 4,
+          border: 1,
+          boxShadow: 0,
+          height: "500px",
+          borderRadius: 5,
+          borderColor: "natural.medium",
+          bgcolor: "background.default",
+        }}
         >
           <Typography
             variant="h5"
@@ -130,12 +137,13 @@ const JsConverter = () => {
               verticalAlign: "middel",
               lineHeight: "450px",
             }}
-          >
+            >
             Your Code Will Apprea Here
           </Typography>
         </Card>
       )}
     </Box>
+      </>
   );
 };
 

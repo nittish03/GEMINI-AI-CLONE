@@ -30,7 +30,7 @@ const Login = () => {
       await axios.post("https://server-mp3l.onrender.com/api/v1/auth/login", { email, password });
       toast.success("Login Successfully");
       localStorage.setItem("authToken", true);
-      navigate("/");
+      navigate("/home");
     } catch (err) {
       console.log(error);
       if (err.response.data.error) {
