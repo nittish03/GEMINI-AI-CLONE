@@ -31,25 +31,25 @@ const Navbar = () => {
       <Typography variant="h1" color="primary" fontWeight="bold">
         Gemini AI
       </Typography>
-      {/* {loggedIn ? ( */}
+      {loggedIn ? (
         <>
           <NavLink to="/" p={1}>
             Home
           </NavLink>
-          {/* <NavLink to="/login" onClick={handleLogout} p={1}>
+          { <NavLink to="/login" onClick={handleLogout} p={1}>
             Logout
-          </NavLink> */}
+          </NavLink> }
         </>
-      {/* // ) : (
-      //   <>
-      //     <NavLink to="/register" p={1}>
-      //       Sign Up
-      //     </NavLink>
-      //     <NavLink to="/login" p={1}>
-      //       Sign In
-      //     </NavLink>
-      //   </>
-      // )} */}
+     ) : (
+         <>
+           <NavLink to="/register" p={1}>
+             Sign Up
+         </NavLink>
+          <NavLink to="/login" p={1}>
+           Sign In
+          </NavLink>
+         </>
+       )} 
     </Box>
   );
 };
