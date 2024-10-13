@@ -23,6 +23,12 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+
+
+  const showP = () => {
+    const passwordInput = document.getElementById("password");
+    passwordInput.type = document.getElementById("cb").checked ? "text" : "password";
+  };
   //register ctrl
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -74,6 +80,7 @@ const Login = () => {
         <TextField
           label="password"
           type="password"
+          id="password"
           required
           margin="normal"
           fullWidth
@@ -82,6 +89,10 @@ const Login = () => {
             setPassword(e.target.value);
           }}
         />
+                  <div id="checkbox" className="form-check mb-">
+            <input onClick={showP} id="cb" type="checkbox" className="form-check-input" />
+            <label className="form-check-label" htmlFor="cb">Show password</label>
+          </div>
         <Button
           type="submit"
           fullWidth
