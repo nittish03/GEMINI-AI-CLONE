@@ -31,7 +31,7 @@ const Login = () => {
   };
   //register ctrl
   const handleSubmit = async (e) => {
-    const loading = toast.loading("Summarizing...")
+    const loading = toast.loading("Logging in...")
     e.preventDefault();
     try {
       await axios.post("https://server-mp3l.onrender.com/api/v1/auth/login", { email, password });

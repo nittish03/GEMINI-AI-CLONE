@@ -32,7 +32,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const loading = toast.loading("Summarizing...")
+      const loading = toast.loading("Registering...")
 
       await axios.post("https://server-mp3l.onrender.com/api/v1/auth/register", { username, email, password });
       toast.dismiss(loading);
