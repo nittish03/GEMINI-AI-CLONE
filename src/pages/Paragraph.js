@@ -107,7 +107,7 @@ const Paragraph = () => {
               mt: 4,
               border: 1,
               boxShadow: 0,
-              height: "500px",
+              height: "fit-content",
               borderRadius: 5,
               borderColor: "natural.medium",
               bgcolor: "background.default",
