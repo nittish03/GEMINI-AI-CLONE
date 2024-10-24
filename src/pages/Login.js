@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
@@ -22,7 +22,13 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
+  const loggedIn = JSON.parse(localStorage.getItem("authToken"));
+useEffect(()=>{
+  if(loggedIn){
+    navigate("/home")
+  }
+ },[loggedIn]
+)
 
 
   const showP = () => {
@@ -31,7 +37,7 @@ const Login = () => {
   };
   //register ctrl
   const handleSubmit = async (e) => {
-    const loading = toast.loading("Logging in...")
+    const loading = toast.loading("Logging in")
     e.preventDefault();
     try {
       await axios.post("https://server-mp3l.onrender.com/api/v1/auth/login", { email, password });
@@ -40,6 +46,8 @@ const Login = () => {
       toast.dismiss(loading);
       toast.success("Login Successfully");
     } catch (err) {
+      toast.dismiss(loading);
+      toast.error("Error logging in", err);
       console.log(error);
       if (err.response.data.error) {
         setError(err.response.data.error);
