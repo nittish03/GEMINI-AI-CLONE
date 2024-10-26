@@ -6,7 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon server.js",
     "start": "node server.js",
-    "client": "npm start --prefix ./ai-clone",
+    "build": "react-scripts build",
+    "client": "npm start --prefix ./news-app",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Nittish",
@@ -27,6 +28,7 @@
     "morgan": "^1.10.0",
     "openai": "^4.67.3",
     "react-hot-toast": "^2.4.1",
+    "react-router-dom": "^6.27.0",
     "react-toastify": "^10.0.5"
   }
 }

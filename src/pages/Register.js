@@ -36,11 +36,11 @@ useEffect(()=>{
   };
   //register ctrl
   const handleSubmit = async (e) => {
+    const loading = toast.loading("Registering")
     e.preventDefault();
     try {
-      const loading = toast.loading("Registering")
 
-      await axios.post("https://server-mp3l.onrender.com/api/v1/auth/register", { username, email, password });
+      await axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/auth/register`, { username, email, password });
       toast.dismiss(loading);
       toast.success("User Register Successfully");
       navigate("/");

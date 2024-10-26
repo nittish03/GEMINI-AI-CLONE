@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
@@ -13,40 +13,32 @@ import {
   Collapse,
 } from "@mui/material";
 
-const Login = () => {
+const Register = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   //media
   const isNotMobile = useMediaQuery("(min-width: 1000px)");
   // states
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const loggedIn = JSON.parse(localStorage.getItem("authToken"));
-  const username = localStorage.getItem("username");
-useEffect(()=>{
-  if(loggedIn){
-    navigate("/home")
-  }
- },[loggedIn]
-)
+
   const showP = () => {
     const passwordInput = document.getElementById("password");
     passwordInput.type = document.getElementById("cb").checked ? "text" : "password";
   };
   //register ctrl
   const handleSubmit = async (e) => {
-    const loading = toast.loading("Logging in")
     e.preventDefault();
     try {
-      await axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/auth/login`, { email, password });
-      localStorage.setItem("authToken", true);
-      navigate("/home");
+      const loading = toast.loading("Registering...")
+
+      await axios.post("https://server-mp3l.onrender.com/api/v1/auth/register", { username, email, password });
       toast.dismiss(loading);
-      toast.success(`Logged in as ${username}`);  
+      toast.success("User Register Successfully");
+      navigate("/");
     } catch (err) {
-      toast.dismiss(loading);
-      toast.error("Error logging in", err);
       console.log(error);
       if (err.response.data.error) {
         setError(err.response.data.error);
@@ -73,8 +65,17 @@ useEffect(()=>{
         </Alert>
       </Collapse>
       <form onSubmit={handleSubmit}>
-        <Typography variant="h3">Sign In</Typography>
-
+        <Typography variant="h3">Sign Up</Typography>
+        <TextField
+          label="username"
+          required
+          margin="normal"
+          fullWidth
+          value={username}
+          onChange={(e) => {
+            setUsername(e.target.value);
+          }}
+        />
         <TextField
           label="email"
           type="email"
@@ -89,8 +90,8 @@ useEffect(()=>{
         <TextField
           label="password"
           type="password"
-          id="password"
           required
+          id="password"
           margin="normal"
           fullWidth
           value={password}
@@ -109,14 +110,14 @@ useEffect(()=>{
           size="large"
           sx={{ color: "white", mt: 2 }}
         >
-          Sign In
+          Sign Up
         </Button>
         <Typography mt={2}>
-          Dont have an account ? <Link to="/register">Please Register</Link>
+          Already have an account ? <Link to="/">Please Login</Link>
         </Typography>
       </form>
     </Box>
   );
 };
 
-export default Login;
+export default Register;

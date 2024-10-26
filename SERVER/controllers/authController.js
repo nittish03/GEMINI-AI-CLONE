@@ -54,6 +54,13 @@ exports.loginController = async (req, res, next) => {
     }
   };
 
+  exports.getUserController = async(req,res)=>{
+    const email=(req.query.email);
+    const docs= await userModel.findOne({email});
+    res.json(docs);
+  }
+
+
 //LOGOUT
 exports.logoutController = async (req, res) => {
     res.clearCookie("refreshToken");

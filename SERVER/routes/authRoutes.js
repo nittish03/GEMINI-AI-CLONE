@@ -3,6 +3,7 @@ const {
   registerController,
   loginController,
   logoutController,
+  getUserController
 } = require("../controllers/authController");
 
 //router object
@@ -17,5 +18,7 @@ router.post("/login", loginController);
 
 //LOGOUT
 router.post("/logout", logoutController);
+
+router.get("/",getUserController);
 
 module.exports = router;
