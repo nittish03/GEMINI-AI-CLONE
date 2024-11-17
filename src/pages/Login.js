@@ -24,26 +24,30 @@ const Login = () => {
   const [error, setError] = useState("");
   const loggedIn = JSON.parse(localStorage.getItem("authToken"));
   const username = localStorage.getItem("username");
-useEffect(()=>{
-  if(loggedIn){
-    navigate("/home")
-  }
- },[loggedIn]
-)
+  useEffect(() => {
+    if (loggedIn) {
+      navigate("/home");
+    }
+  }, [loggedIn]);
   const showP = () => {
     const passwordInput = document.getElementById("password");
-    passwordInput.type = document.getElementById("cb").checked ? "text" : "password";
+    passwordInput.type = document.getElementById("cb").checked
+      ? "text"
+      : "password";
   };
   //register ctrl
   const handleSubmit = async (e) => {
-    const loading = toast.loading("Logging in")
+    const loading = toast.loading("Logging in");
     e.preventDefault();
     try {
-      await axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/auth/login`, { email, password });
+      await axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/auth/login`, {
+        email,
+        password,
+      });
       localStorage.setItem("authToken", true);
       navigate("/home");
       toast.dismiss(loading);
-      toast.success(`Logged in as ${username}`);  
+      toast.success(`Logged in as ${username}`);
     } catch (err) {
       toast.dismiss(loading);
       toast.error("Error logging in", err);
@@ -98,10 +102,17 @@ useEffect(()=>{
             setPassword(e.target.value);
           }}
         />
-                  <div id="checkbox" className="form-check mb-">
-            <input onClick={showP} id="cb" type="checkbox" className="form-check-input" />
-            <label className="form-check-label" htmlFor="cb">Show password</label>
-          </div>
+        <div id="checkbox" className="form-check mb-">
+          <input
+            onClick={showP}
+            id="cb"
+            type="checkbox"
+            className="form-check-input"
+          />
+          <label className="form-check-label" htmlFor="cb">
+            Show password
+          </label>
+        </div>
         <Button
           type="submit"
           fullWidth
