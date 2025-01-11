@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from "react";
+import React,{useEffect} from "react";
 import { Box, Typography, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
@@ -8,20 +8,20 @@ const Navbar = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const loggedIn = JSON.parse(localStorage.getItem("authToken"));
-  const [username,setUsername]= useState("");
   const email = (localStorage.getItem("email"));
   const params = {
     email:email
   }
   const getUsers= async()=>{
     const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/auth/`,{params:params});
-    setUsername(response.data.username);
-    localStorage.setItem("username",username);
+
   };
 
   useEffect(()=>{
-getUsers();
-  },[username,email,loggedIn])
+    if(loggedIn){
+      getUsers();
+    }
+  },[email,loggedIn,getUsers])
 
   //handle logout
   const handleLogout = async () => {
@@ -51,7 +51,7 @@ getUsers();
             Home
           </NavLink>
           { <NavLink to="/" onClick={handleLogout} p={1}>
-            Logout, {username}
+            Logout
           </NavLink> }
         </>
      ) : (

@@ -16,52 +16,66 @@ import {
 const Login = () => {
   const theme = useTheme();
   const navigate = useNavigate();
-  //media
   const isNotMobile = useMediaQuery("(min-width: 1000px)");
+  
   // states
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const loggedIn = JSON.parse(localStorage.getItem("authToken"));
-  const username = localStorage.getItem("username");
+
+  // Check if user is already logged in
   useEffect(() => {
+    const loggedIn = JSON.parse(localStorage.getItem("authToken"));
     if (loggedIn) {
       navigate("/home");
     }
-  }, [loggedIn]);
-  const showP = () => {
+  }, [navigate]);
+
+  // Toggle password visibility
+  const showPassword = () => {
     const passwordInput = document.getElementById("password");
     passwordInput.type = document.getElementById("cb").checked
       ? "text"
       : "password";
   };
-  //register ctrl
+
+  // Handle login submission
   const handleSubmit = async (e) => {
-    const loading = toast.loading("Logging in");
     e.preventDefault();
+    const loading = toast.loading("Logging in");
+
     try {
-      await axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/auth/login`, {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/api/v1/auth/login`,
+        {
+          email,
+          password,
+        }
+      );
+
       localStorage.setItem("authToken", true);
-      navigate("/home");
+      localStorage.setItem("username", response.data.username);
+      
       toast.dismiss(loading);
-      toast.success(`Logged in as ${username}`);
+      toast.success(`Logged in as ${response.data.username}`);
+      navigate("/home");
     } catch (err) {
       toast.dismiss(loading);
-      toast.error("Error logging in", err);
-      console.log(error);
-      if (err.response.data.error) {
+      toast.error("Error logging in");
+      console.log(err);
+
+      if (err.response?.data?.error) {
         setError(err.response.data.error);
       } else if (err.message) {
         setError(err.message);
       }
+
       setTimeout(() => {
         setError("");
       }, 5000);
     }
   };
+
   return (
     <Box
       width={isNotMobile ? "40%" : "80%"}
@@ -71,40 +85,39 @@ const Login = () => {
       sx={{ boxShadow: 5 }}
       backgroundColor={theme.palette.background.alt}
     >
-      <Collapse in={error}>
+      <Collapse in={Boolean(error)}>
         <Alert severity="error" sx={{ mb: 2 }}>
           {error}
         </Alert>
       </Collapse>
+
       <form onSubmit={handleSubmit}>
         <Typography variant="h3">Sign In</Typography>
 
         <TextField
-          label="email"
+          label="Email"
           type="email"
           required
           margin="normal"
           fullWidth
           value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
+          onChange={(e) => setEmail(e.target.value)}
         />
+
         <TextField
-          label="password"
+          label="Password"
           type="password"
           id="password"
           required
           margin="normal"
           fullWidth
           value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
+          onChange={(e) => setPassword(e.target.value)}
         />
-        <div id="checkbox" className="form-check mb-">
+
+        <div className="form-check mb-3">
           <input
-            onClick={showP}
+            onClick={showPassword}
             id="cb"
             type="checkbox"
             className="form-check-input"
@@ -113,6 +126,7 @@ const Login = () => {
             Show password
           </label>
         </div>
+
         <Button
           type="submit"
           fullWidth
@@ -122,8 +136,9 @@ const Login = () => {
         >
           Sign In
         </Button>
+
         <Typography mt={2}>
-          Dont have an account ? <Link to="/register">Please Register</Link>
+          Don't have an account? <Link to="/register">Please Register</Link>
         </Typography>
       </form>
     </Box>
