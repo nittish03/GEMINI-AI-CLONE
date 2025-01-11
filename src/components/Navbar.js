@@ -12,16 +12,7 @@ const Navbar = () => {
   const params = {
     email:email
   }
-  const getUsers= async()=>{
-    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/auth/`,{params:params});
 
-  };
-
-  useEffect(()=>{
-    if(loggedIn){
-      getUsers();
-    }
-  },[email,loggedIn,getUsers])
 
   //handle logout
   const handleLogout = async () => {

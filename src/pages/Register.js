@@ -29,7 +29,7 @@ useEffect(()=>{
   if(loggedIn){
     navigate("/home")
   }
-},[loggedIn])
+},[loggedIn,navigate])
   const showP = () => {
     const passwordInput = document.getElementById("password");
     passwordInput.type = document.getElementById("cb").checked ? "text" : "password";
