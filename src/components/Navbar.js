@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React from "react";
 import { Box, Typography, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
@@ -8,10 +8,7 @@ const Navbar = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const loggedIn = JSON.parse(localStorage.getItem("authToken"));
-  const email = (localStorage.getItem("email"));
-  const params = {
-    email:email
-  }
+
 
 
   //handle logout
