@@ -1,180 +1,62 @@
 import React from "react";
-import { Box, Typography, Card, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import DescriptionRounded from "@mui/icons-material/DescriptionRounded";
 import FormatAlignLeftOutlined from "@mui/icons-material/FormatAlignLeftOutlined";
 import ChatRounded from "@mui/icons-material/ChatRounded";
+
 const Homepage = () => {
   const navigate = useNavigate();
   const loggedIn = true;
 
+  if (!loggedIn) {
+    return <h1 className="login-message">LOG IN TO ACCESS</h1>;
+  }
+
   return (
-    !loggedIn?
-    <>
-  <h1 style={{fontSize:"25vh",backgroundColor:"yellow"}} className="text-center" >LOG IN TO ACCESS</h1>
-  </>
-  :
-    <>
-      <Box sx={{ display: "flex", flexDirection: "row" }}>
-        <Box p={2}>
-          <Typography variant="h4" mb={2} fontWeight="bold">
-            Text Generation
-          </Typography>
-          <Card
-            onClick={() => navigate("/summary")}
-            sx={{
-              boxShadow: 2,
-              borderRadius: 5,
-              height: 190,
-              width: 200,
-              "&:hover": {
-                border: 2,
-                boxShadow: 0,
-                borderColor: "primary.dark",
-                cursor: "pointer",
-              },
-            }}
-          >
-            <DescriptionRounded
-              sx={{ fontSize: 80, color: "primary.main", mt: 2, ml: 2 }}
-            />
-            <Stack p={3} pt={0}>
-              <Typography fontWeight="bold" variant="h5">
-                TEXT SUMAMRY
-              </Typography>
-              <Typography variant="h6">
-                Summarize long text into short sentences
-              </Typography>
-            </Stack>
-          </Card>
-        </Box>
-        <Box p={2}>
-          <Typography variant="h4" mb={2} fontWeight="bold">
-            Parapgraph Generation
-          </Typography>
-          <Card
-            onClick={() => navigate("/paragraph")}
-            sx={{
-              boxShadow: 2,
-              borderRadius: 5,
-              height: 190,
-              width: 200,
-              "&:hover": {
-                border: 2,
-                boxShadow: 0,
-                borderColor: "primary.dark",
-                cursor: "pointer",
-              },
-            }}
-          >
-            <FormatAlignLeftOutlined
-              sx={{ fontSize: 80, color: "primary.main", mt: 2, ml: 2 }}
-            />
-            <Stack p={3} pt={0}>
-              <Typography fontWeight="bold" variant="h5">
-                Parapgraph
-              </Typography>
-              <Typography variant="h6">
-                Generate Paragraph with words
-              </Typography>
-            </Stack>
-          </Card>
-        </Box>
-        <Box p={2}>
-          <Typography variant="h4" mb={2} fontWeight="bold">
-            AI ChatBot
-          </Typography>
-          <Card
-            onClick={() => navigate("/chatbot")}
-            sx={{
-              boxShadow: 2,
-              borderRadius: 5,
-              height: 190,
-              width: 200,
-              "&:hover": {
-                border: 2,
-                boxShadow: 0,
-                borderColor: "primary.dark",
-                cursor: "pointer",
-              },
-            }}
-          >
-            <ChatRounded
-              sx={{ fontSize: 80, color: "primary.main", mt: 2, ml: 2 }}
-            />
-            <Stack p={3} pt={0}>
-              <Typography fontWeight="bold" variant="h5">
-                Chatbot
-              </Typography>
-              <Typography variant="h6">Chat With AI Chatbot</Typography>
-            </Stack>
-          </Card>
-        </Box>
-        <Box p={2}>
-          <Typography variant="h4" mb={2} fontWeight="bold">
-            Javascript Converter
-          </Typography>
-          <Card
-            onClick={() => navigate("/js-converter")}
-            sx={{
-              boxShadow: 2,
-              borderRadius: 5,
-              height: 190,
-              width: 200,
-              "&:hover": {
-                border: 2,
-                boxShadow: 0,
-                borderColor: "primary.dark",
-                cursor: "pointer",
-              },
-            }}
-          >
-            <ChatRounded
-              sx={{ fontSize: 80, color: "primary.main", mt: 2, ml: 2 }}
-            />
-            <Stack p={3} pt={0}>
-              <Typography fontWeight="bold" variant="h5">
-                JS CONVERTER
-              </Typography>
-              <Typography variant="h6">
-                Trasnlate english to javascript code
-              </Typography>
-            </Stack>
-          </Card>
-        </Box>
-        {/* <Box p={2}>
-          <Typography variant="h4" mb={2} fontWeight="bold">
-            AI SCIFI Images
-          </Typography>
-          <Card
-            onClick={() => navigate("/scifiimage")}
-            sx={{
-              boxShadow: 2,
-              borderRadius: 5,
-              height: 190,
-              width: 200,
-              "&:hover": {
-                border: 2,
-                boxShadow: 0,
-                borderColor: "primary.dark",
-                cursor: "pointer",
-              },
-            }}
-          >
-            <ChatRounded
-              sx={{ fontSize: 80, color: "primary.main", mt: 2, ml: 2 }}
-            />
-            <Stack p={3} pt={0}>
-              <Typography fontWeight="bold" variant="h5">
-                Scifi Image
-              </Typography>
-              <Typography variant="h6">Generate Scifi images</Typography>
-            </Stack>
-          </Card>
-        </Box> */}
-      </Box>
-    </>
+    <div className="homepage-container">
+      <FeatureCard
+        title="Text Generation"
+        icon={<DescriptionRounded className="card-icon" />}
+        heading="TEXT SUMMARY"
+        description="Summarize long text into short sentences"
+        onClick={() => navigate("/summary")}
+      />
+      <FeatureCard
+        title="Paragraph Generation"
+        icon={<FormatAlignLeftOutlined className="card-icon" />}
+        heading="PARAGRAPH"
+        description="Generate paragraph with words"
+        onClick={() => navigate("/paragraph")}
+      />
+      <FeatureCard
+        title="AI ChatBot"
+        icon={<ChatRounded className="card-icon" />}
+        heading="Chatbot"
+        description="Chat with AI Chatbot"
+        onClick={() => navigate("/chatbot")}
+      />
+      <FeatureCard
+        title="JavaScript Converter"
+        icon={<ChatRounded className="card-icon" />}
+        heading="JS CONVERTER"
+        description="Translate English to JavaScript code"
+        onClick={() => navigate("/js-converter")}
+      />
+    </div>
   );
 };
+
+const FeatureCard = ({ title, icon, heading, description, onClick }) => (
+  <div className="feature-box">
+    <h2 className="feature-title">{title}</h2>
+    <div className="card" onClick={onClick}>
+      {icon}
+      <div className="card-content">
+        <h3>{heading}</h3>
+        <p>{description}</p>
+      </div>
+    </div>
+  </div>
+);
 
 export default Homepage;

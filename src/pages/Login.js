@@ -17,7 +17,7 @@ const Login = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const isNotMobile = useMediaQuery("(min-width: 1000px)");
-  
+
   // states
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -77,14 +77,7 @@ const Login = () => {
   };
 
   return (
-    <Box
-      width={isNotMobile ? "40%" : "80%"}
-      p={"2rem"}
-      m={"2rem auto"}
-      borderRadius={5}
-      sx={{ boxShadow: 5 }}
-      backgroundColor={theme.palette.background.alt}
-    >
+    <Box className="login-container">
       <Collapse in={Boolean(error)}>
         <Alert severity="error" sx={{ mb: 2 }}>
           {error}
@@ -92,7 +85,9 @@ const Login = () => {
       </Collapse>
 
       <form onSubmit={handleSubmit}>
-        <Typography variant="h3">Sign In</Typography>
+        <Typography variant="h3" className="login-header">
+          Sign In
+        </Typography>
 
         <TextField
           label="Email"

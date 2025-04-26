@@ -1,24 +1,577 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* global.css */
 
 body {
-  font-family: "roboto", sans-serif;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f2f5;
 }
 
-a {
-  color: #60bf70 !important;
+.login-message {
+  font-size: 10vh;
+  background-color: yellow;
+  text-align: center;
+  padding: 100px 20px;
+  font-weight: bold;
+}
+
+.homepage-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px;
+}
+
+.feature-box {
+  text-align: center;
+  width: 280px;
+}
+
+.feature-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 20px;
+  height: 220px;
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px;
+  cursor: pointer;
+}
+
+.card:hover {
+  border: 2px solid #1976d2;
+  box-shadow: none;
+}
+
+.card-icon {
+  font-size: 70px !important;
+  color: #1976d2;
+  margin-bottom: 10px;
+}
+
+.card-content {
+  padding-left: 5px;
+}
+
+.card-content h3 {
+  margin: 5px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+  text-align: left;
+}
+
+.card-content p {
+  margin: 0;
+  font-size: 15px;
+  color: #555;
+  text-align: left;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .homepage-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .feature-box {
+    width: 90%;
+  }
+}
+/* Navbar styling */
+
+.navbar {
+  width: 100%;
+  background-color: #fff;
+  padding: 1rem 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.navbar-logo {
+  font-weight: bold;
+  color: #1976d2;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.nav-link {
   text-decoration: none;
-  padding: 20px;
+  color: #333;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+}
+
+.nav-link:hover {
+  background-color: #f0f0f0;
+  color: #1976d2;
+}
+
+.nav-link.active {
+  background-color: #1976d2;
+  color: white;
+}
+
+.logout-btn {
+  text-transform: none !important;
+  background-color: #e53935 !important;
+  color: white !important;
+  font-weight: 500;
+  padding: 6px 16px !important;
+  border-radius: 8px !important;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.logout-btn:hover {
+  background-color: #c62828 !important;
+}
+/* Global styles for ChatBot component */
+
+/* ChatBot Container */
+.chat-container {
+  width: 80%;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f5f5f5;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Login message styling */
+.login-message {
+  font-size: 10vh;
+  background-color: yellow;
+  text-align: center;
+  padding: 100px 20px;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Chat Header */
+.chat-header {
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #1976d2;
+}
+
+/* TextField styling */
+.MuiTextField-root {
+  margin-bottom: 16px;
+}
+
+.MuiInputBase-root {
+  border-radius: 8px;
+}
+
+/* Button styling */
+.MuiButton-root {
+  background-color: #1976d2 !important;
+  border-radius: 8px !important;
+}
+
+.MuiButton-root:hover {
+  background-color: #1565c0 !important;
+}
+
+/* Response Card Styling */
+.response-card {
   margin-top: 20px;
+  border: 1px solid #1976d2;
+  box-shadow: none;
+  border-radius: 10px;
+  background-color: #fff;
 }
 
-a:hover {
-  color: black !important;
+/* Error Alert */
+.MuiAlert-root {
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background-color: #ffcccc;
+  color: #d32f2f;
 }
 
-a.active {
-  color: #57d96d !important;
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .chat-container {
+    width: 90%;
+  }
 }
+/* Global styles for JSConverter component */
+
+/* JS Converter Container */
+.js-converter-container {
+  width: 80%;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f5f5f5;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Login message styling */
+.login-message {
+  font-size: 10vh;
+  background-color: yellow;
+  text-align: center;
+  padding: 100px 20px;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* JS Converter Header */
+.converter-header {
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #1976d2;
+}
+
+/* TextField styling */
+.MuiTextField-root {
+  margin-bottom: 16px;
+}
+
+.MuiInputBase-root {
+  border-radius: 8px;
+}
+
+/* Button styling */
+.MuiButton-root {
+  background-color: #1976d2 !important;
+  border-radius: 8px !important;
+}
+
+.MuiButton-root:hover {
+  background-color: #1565c0 !important;
+}
+
+/* Response Card Styling */
+.response-card {
+  margin-top: 20px;
+  border: 1px solid #1976d2;
+  box-shadow: none;
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 16px;
+  overflow: auto;
+  max-height: 500px;
+}
+
+/* Error Alert */
+.MuiAlert-root {
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background-color: #ffcccc;
+  color: #d32f2f;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .js-converter-container {
+    width: 90%;
+  }
+}
+/* Global styles for Login component */
+
+/* Login container */
+.login-container {
+  width: 80%;
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f5f5f5;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Login header styling */
+.login-header {
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #1976d2;
+}
+
+/* TextField styling */
+.MuiTextField-root {
+  margin-bottom: 16px;
+}
+
+.MuiInputBase-root {
+  border-radius: 8px;
+}
+
+/* Button styling */
+.MuiButton-root {
+  background-color: #1976d2 !important;
+  border-radius: 8px !important;
+}
+
+.MuiButton-root:hover {
+  background-color: #1565c0 !important;
+}
+
+/* Error Alert */
+.MuiAlert-root {
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background-color: #ffcccc;
+  color: #d32f2f;
+}
+
+/* Show password checkbox */
+.form-check-input {
+  margin-right: 8px;
+}
+
+.form-check-label {
+  font-size: 0.9rem;
+  color: #1976d2;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .login-container {
+    width: 90%;
+  }
+}
+
+/* Global styles for Summary component */
+
+/* Summary container */
+.summary-container {
+  width: 80%;
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f5f5f5;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Summary header styling */
+.summary-header {
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #1976d2;
+}
+
+/* TextField styling */
+.MuiTextField-root {
+  margin-bottom: 16px;
+}
+
+.MuiInputBase-root {
+  border-radius: 8px;
+}
+
+/* Button styling */
+.MuiButton-root {
+  background-color: #1976d2 !important;
+  border-radius: 8px !important;
+}
+
+.MuiButton-root:hover {
+  background-color: #1565c0 !important;
+}
+
+/* Error Alert */
+.MuiAlert-root {
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background-color: #ffcccc;
+  color: #d32f2f;
+}
+
+/* Placeholder card styling */
+.summary-placeholder {
+  mt: 4;
+  border: 1px solid #cccccc;
+  box-shadow: 0;
+  height: 500px;
+  border-radius: 8px;
+  background-color: #fafafa;
+}
+
+.summary-card {
+  mt: 4;
+  border: 1px solid #cccccc;
+  box-shadow: 0;
+  height: fit-content;
+  border-radius: 8px;
+  background-color: #fafafa;
+  overflow: auto;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .summary-container {
+    width: 90%;
+  }
+}
+/* Global styles for Paragraph component */
+
+/* Paragraph container */
+.paragraph-container {
+  width: 80%;
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f5f5f5;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Paragraph header styling */
+.paragraph-header {
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #1976d2;
+}
+
+/* TextField styling */
+.MuiTextField-root {
+  margin-bottom: 16px;
+}
+
+.MuiInputBase-root {
+  border-radius: 8px;
+}
+
+/* Button styling */
+.MuiButton-root {
+  background-color: #1976d2 !important;
+  border-radius: 8px !important;
+}
+
+.MuiButton-root:hover {
+  background-color: #1565c0 !important;
+}
+
+/* Error Alert */
+.MuiAlert-root {
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background-color: #ffcccc;
+  color: #d32f2f;
+}
+
+/* Placeholder card styling */
+.paragraph-placeholder {
+  mt: 4;
+  border: 1px solid #cccccc;
+  box-shadow: 0;
+  height: 500px;
+  border-radius: 8px;
+  background-color: #fafafa;
+}
+
+.paragraph-card {
+  mt: 4;
+  border: 1px solid #cccccc;
+  box-shadow: 0;
+  height: fit-content;
+  border-radius: 8px;
+  background-color: #fafafa;
+  overflow: auto;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .paragraph-container {
+    width: 90%;
+  }
+}
+/* Global styles for Register component */
+
+/* Register container */
+.register-container {
+  width: 80%;
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f5f5f5;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Register header styling */
+.register-header {
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #1976d2;
+}
+
+/* TextField styling */
+.MuiTextField-root {
+  margin-bottom: 16px;
+}
+
+.MuiInputBase-root {
+  border-radius: 8px;
+}
+
+/* Button styling */
+.MuiButton-root {
+  background-color: #1976d2 !important;
+  border-radius: 8px !important;
+}
+
+.MuiButton-root:hover {
+  background-color: #1565c0 !important;
+}
+
+/* Error Alert */
+.MuiAlert-root {
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background-color: #ffcccc;
+  color: #d32f2f;
+}
+
+/* Checkbox for Show Password */
+.form-check-input {
+  margin-right: 8px;
+}
+
+.form-check-label {
+  font-size: 14px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .register-container {
+    width: 90%;
+  }
+}
+

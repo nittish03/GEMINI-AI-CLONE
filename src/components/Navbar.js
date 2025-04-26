@@ -1,57 +1,42 @@
 import React from "react";
-import { Box, Typography, useTheme } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { NavLink } from "react-router-dom";
+import { Box, Typography, useTheme, Button } from "@mui/material";
+import { useNavigate, NavLink } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+
+
 const Navbar = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const loggedIn = JSON.parse(localStorage.getItem("authToken"));
 
-
-
-  //handle logout
   const handleLogout = async () => {
     try {
       await axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/auth/logout`);
       localStorage.removeItem("authToken");
-      toast.success("logout successfully ");
+      toast.success("Logged out successfully");
       navigate("/");
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      toast.error("Logout failed");
     }
   };
+
   return (
-    <Box
-      width={"100%"}
-      backgroundColor={theme.palette.background.alt}
-      p="1rem 6%"
-      textAlign={"center"}
-      sx={{ boxShadow: 3, mb: 2 }}
-    >
-      <Typography variant="h1" color="primary" fontWeight="bold">
+    <Box className="navbar">
+      <Typography variant="h4" className="navbar-logo">
         Gemini AI
       </Typography>
-      {loggedIn ? (
-        <>
-          <NavLink to="/home" p={1}>
-            Home
-          </NavLink>
-          { <NavLink to="/" onClick={handleLogout} p={1}>
+      <nav className="navbar-links">
+        <NavLink to="/home" className="nav-link">
+          Home
+        </NavLink>
+        {loggedIn && (
+          <Button onClick={handleLogout} className="logout-btn">
             Logout
-          </NavLink> }
-        </>
-     ) : (
-         <>
-           <NavLink to="/register" p={1}>
-             Sign Up
-         </NavLink>
-          <NavLink to="/" p={1}>
-           Sign In
-          </NavLink>
-         </>
-       )} 
+          </Button>
+        )}
+      </nav>
     </Box>
   );
 };

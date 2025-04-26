@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
@@ -16,48 +16,57 @@ import {
 const Register = () => {
   const theme = useTheme();
   const navigate = useNavigate();
-  //media
+
+  // Media query for responsiveness
   const isNotMobile = useMediaQuery("(min-width: 1000px)");
-  // states
+
+  // State hooks
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const loggedIn = true;
+  const loggedIn = false; // Adjust to the actual logged-in state
 
-useEffect(()=>{
-  if(loggedIn){
-    navigate("/home")
-  }
-},[loggedIn,navigate])
+  // Redirect if already logged in
+  useEffect(() => {
+    if (loggedIn) {
+      navigate("/home");
+    }
+  }, [loggedIn, navigate]);
+
+  // Toggle password visibility
   const showP = () => {
     const passwordInput = document.getElementById("password");
     passwordInput.type = document.getElementById("cb").checked ? "text" : "password";
   };
-  //register ctrl
-  const handleSubmit = async (e) => {
-    const loading = toast.loading("Registering")
-    e.preventDefault();
-    try {
 
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    const loading = toast.loading("Registering...");
+    e.preventDefault();
+
+    try {
       await axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/auth/register`, { username, email, password });
       toast.dismiss(loading);
-      toast.success("User Register Successfully");
-      navigate("/");
+      toast.success("User Registered Successfully");
+      navigate("/"); // Redirect to login page after successful registration
     } catch (err) {
       toast.dismiss(loading);
-      toast.error("Error Registering in", err);
-      console.log(error);
-      if (err.response.data.error) {
+      toast.error("Error Registering", err);
+      console.error(err);
+
+      if (err.response?.data?.error) {
         setError(err.response.data.error);
       } else if (err.message) {
         setError(err.message);
       }
+
       setTimeout(() => {
         setError("");
       }, 5000);
     }
   };
+
   return (
     <Box
       width={isNotMobile ? "40%" : "80%"}
@@ -67,50 +76,51 @@ useEffect(()=>{
       sx={{ boxShadow: 5 }}
       backgroundColor={theme.palette.background.alt}
     >
-      <Collapse in={error}>
+      <Collapse in={Boolean(error)}>
         <Alert severity="error" sx={{ mb: 2 }}>
           {error}
         </Alert>
       </Collapse>
       <form onSubmit={handleSubmit}>
-        <Typography variant="h3">Sign Up</Typography>
+        <Typography variant="h3" className="register-header">Sign Up</Typography>
+
         <TextField
-          label="username"
+          label="Username"
           required
           margin="normal"
           fullWidth
           value={username}
-          onChange={(e) => {
-            setUsername(e.target.value);
-          }}
+          onChange={(e) => setUsername(e.target.value)}
         />
+
         <TextField
-          label="email"
+          label="Email"
           type="email"
           required
           margin="normal"
           fullWidth
           value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
+          onChange={(e) => setEmail(e.target.value)}
         />
+
         <TextField
-          label="password"
+          label="Password"
           type="password"
           required
           id="password"
           margin="normal"
           fullWidth
           value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
+          onChange={(e) => setPassword(e.target.value)}
         />
-                  <div id="checkbox" className="form-check mb-">
-            <input onClick={showP} id="cb" type="checkbox" className="form-check-input" />
-            <label className="form-check-label" htmlFor="cb">Show password</label>
-          </div>
+
+        <div id="checkbox" className="form-check mb-3">
+          <input onClick={showP} id="cb" type="checkbox" className="form-check-input" />
+          <label className="form-check-label" htmlFor="cb">
+            Show password
+          </label>
+        </div>
+
         <Button
           type="submit"
           fullWidth
@@ -120,8 +130,9 @@ useEffect(()=>{
         >
           Sign Up
         </Button>
+
         <Typography mt={2}>
-          Already have an account ? <Link to="/">Please Login</Link>
+          Already have an account? <Link to="/">Please Login</Link>
         </Typography>
       </form>
     </Box>

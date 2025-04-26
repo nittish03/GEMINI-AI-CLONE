@@ -14,83 +14,83 @@ import {
   Card,
 } from "@mui/material";
 
+
 const Summary = () => {
   const theme = useTheme();
   //media
   const isNotMobile = useMediaQuery("(min-width: 1000px)");
+
   // states
   const [text, setText] = useState("");
   const [summary, setSummary] = useState("");
   const [error, setError] = useState("");
   const loggedIn = true;
 
-
   //register ctrl
   const handleSubmit = async (e) => {
-    try{
-      const loading = toast.loading("Summarizing...")
+    try {
+
       e.preventDefault();
       const response = await axios({
-        url:`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${process.env.REACT_APP_API_KEY}`,
-        method:"post",
-        data: 
-        {contents:[{parts:[{"text":`Summarise this ${text}`}]}]}
-      })
-      toast.dismiss(loading);
-      toast.success("Summarized successfully")
+        url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${process.env.REACT_APP_API_KEY}`,
+        method: "post",
+        data: {
+          contents: [{ parts: [{ text: `Summarize this ${text}` }] }],
+        },
+      });
 
-      setSummary(response.data.candidates[0].content.parts[0].text)
-      console.log(response.data.candidates[0].content.parts[0].text)
+      toast.success("Summarized successfully");
 
-    }catch(err){
-      console.log(error);
+      setSummary(response.data.candidates[0].content.parts[0].text);
+      console.log(response.data.candidates[0].content.parts[0].text);
+    } catch (err) {
+
+      toast.error("Error summarizing");
+      console.log(err);
+
+      if (err.response?.data?.error) {
+        setError(err.response.data.error);
+      } else if (err.message) {
+        setError(err.message);
+      }
+
       setTimeout(() => {
         setError("");
       }, 5000);
     }
-
   };
 
-
-
-
-  return (
-    !loggedIn?
+  return !loggedIn ? (
     <>
-  <h1 style={{fontSize:"25vh",backgroundColor:"yellow"}} className="text-center" >LOG IN TO ACCESS</h1>
-  </>
-  :
-<>
-      <Box
-        width={isNotMobile ? "40%" : "80%"}
-        p={"2rem"}
-        m={"2rem auto"}
-        borderRadius={5}
-        sx={{ boxShadow: 5 }}
-        backgroundColor={theme.palette.background.alt}
-      >
-        <Collapse in={error}>
+      <h1 style={{ fontSize: "25vh", backgroundColor: "yellow" }} className="text-center">
+        LOG IN TO ACCESS
+      </h1>
+    </>
+  ) : (
+    <>
+      <Box className="summary-container">
+        <Collapse in={Boolean(error)}>
           <Alert severity="error" sx={{ mb: 2 }}>
             {error}
           </Alert>
         </Collapse>
-        <form>
-          <Typography variant="h3">Summarize Text</Typography>
-  
+        <form onSubmit={handleSubmit}>
+          <Typography variant="h3" className="summary-header">
+            Summarize Text
+          </Typography>
+
           <TextField
-            placeholder="add your text"
+            placeholder="Add your text"
             type="text"
             multiline={true}
             required
             margin="normal"
             fullWidth
             value={text}
-            onChange={(e) => {
-              setText(e.target.value);
-            }}
+            onChange={(e) => setText(e.target.value)}
           />
-  
-          <Button onClick={handleSubmit}
+
+          <Button
             type="submit"
             fullWidth
             variant="contained"
@@ -99,53 +99,34 @@ const Summary = () => {
           >
             Submit
           </Button>
+
           <Typography mt={2}>
-            not this tool ? <Link to="/">GO BACK</Link>
+            Not this tool? <Link to="/">Go Back</Link>
           </Typography>
         </form>
-  
+
         {summary ? (
-          <Card
-            sx={{
-              mt: 4,
-              border: 1,
-              boxShadow: 0,
-              height: "fit-content",
-              borderRadius: 5,
-              borderColor: "natural.medium",
-              bgcolor: "background.default",
-            }}
-          >
+          <Card className="summary-card">
             <Typography p={2}>{summary}</Typography>
           </Card>
         ) : (
-          <Card
-            sx={{
-              mt: 4,
-              border: 1,
-              boxShadow: 0,
-              height: "500px",
-              borderRadius: 5,
-              borderColor: "natural.medium",
-              bgcolor: "background.default",
-            }}
-          >
+          <Card className="summary-placeholder">
             <Typography
               variant="h5"
               color="natural.main"
               sx={{
                 textAlign: "center",
-                verticalAlign: "middel",
+                verticalAlign: "middle",
                 lineHeight: "450px",
               }}
             >
-              Summary Will Appear Here
+              Summary will appear here
             </Typography>
           </Card>
         )}
       </Box>
-  
-</>  );
+    </>
+  );
 };
 
 export default Summary;
