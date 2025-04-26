@@ -22,7 +22,7 @@ const JsConverter = () => {
   const [text, settext] = useState("");
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
-  const loggedIn = JSON.parse(localStorage.getItem("authToken"));
+  const loggedIn = true;
 
 
   //register ctrl

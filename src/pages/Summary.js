@@ -22,7 +22,7 @@ const Summary = () => {
   const [text, setText] = useState("");
   const [summary, setSummary] = useState("");
   const [error, setError] = useState("");
-  const loggedIn = JSON.parse(localStorage.getItem("authToken"));
+  const loggedIn = true;
 
 
   //register ctrl

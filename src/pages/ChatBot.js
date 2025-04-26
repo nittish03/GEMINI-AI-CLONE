@@ -18,7 +18,7 @@ const ChatBot = () => {
   const theme = useTheme();
   //media
   const isNotMobile = useMediaQuery("(min-width: 1000px)");
-  const loggedIn = JSON.parse(localStorage.getItem("authToken"));
+  const loggedIn = true;
 
   // states
   const [text, settext] = useState("");

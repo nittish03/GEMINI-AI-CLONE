@@ -25,7 +25,7 @@ const Login = () => {
 
   // Check if user is already logged in
   useEffect(() => {
-    const loggedIn = JSON.parse(localStorage.getItem("authToken"));
+    const loggedIn = true;
     if (loggedIn) {
       navigate("/home");
     }

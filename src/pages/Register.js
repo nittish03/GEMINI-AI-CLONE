@@ -23,7 +23,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const loggedIn = JSON.parse(localStorage.getItem("authToken"));
+  const loggedIn = true;
 
 useEffect(()=>{
   if(loggedIn){

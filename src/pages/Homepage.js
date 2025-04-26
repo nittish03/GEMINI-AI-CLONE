@@ -6,7 +6,7 @@ import FormatAlignLeftOutlined from "@mui/icons-material/FormatAlignLeftOutlined
 import ChatRounded from "@mui/icons-material/ChatRounded";
 const Homepage = () => {
   const navigate = useNavigate();
-  const loggedIn = JSON.parse(localStorage.getItem("authToken"));
+  const loggedIn = true;
 
   return (
     !loggedIn?
